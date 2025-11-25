@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>Gallery - Weapon Fitness 2 | BSK 3rd Stage</title>
+  <meta name="description" content="Gallery of Weapon Fitness 2 — client transformations, gym interior, equipment and classes. Visit us at BSK 3rd Stage, Bangalore." />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background:#000;
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    :root { --orange:#FF6B00; --orange2:#FF8534; }
+
+    /* Loading */
+    .loading-screen{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:#000; z-index:9999; }
+    .loader{ width:56px; height:56px; border:4px solid rgba(255,107,0,0.25); border-top-color:var(--orange); border-radius:50%; animation:spin 1s linear infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+
+    /* Nav */
+    #navbar{ position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(0,0,0,0.9); backdrop-filter: blur(6px);}
+    .nav-link{ position:relative; }
+    .nav-link::after{ content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0; background:var(--orange); transition:width .25s; }
+    .nav-link:hover::after{ width:100%; }
+
+    /* Hero (same behaviour as index.html) */
+    .hero-parallax{ position:relative; height:100vh; overflow:hidden; }
+    .hero-bg{
+      position:absolute; top:0; left:0; width:100%; height:120%;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+                  url('/mnt/data/c05e12bf-4a50-40c7-97b4-057b7cb2553a.png') center/cover no-repeat;
+      will-change: transform; z-index:0; transform: translateY(0);
+    }
+    .hero-content { position:relative; z-index:10; text-align:center; padding:0 1rem; }
+
+    .orange-accent { color:var(--orange); }
+    .btn-orange{ background:var(--orange); color:#000; padding:.95rem 1.6rem; border-radius:10px; font-weight:700; display:inline-block; transition:all .25s; }
+    .btn-orange:hover{ background:var(--orange2); transform:translateY(-3px); box-shadow:0 10px 30px rgba(255,107,0,.2); }
+
+    /* Sections */
+    section { padding:4.5rem 1rem; }
+
+    /* Gallery grid */
+    .gallery-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; }
+    .gallery-item { position:relative; overflow:hidden; border-radius:12px; cursor:pointer; background:rgba(255,255,255,0.02); }
+    .gallery-item img{ width:100%; height:100%; object-fit:cover; transition: transform .45s ease; display:block; }
+    .gallery-item:hover img{ transform:scale(1.06); }
+
+    /* Responsive */
+    @media (max-width: 1024px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } .hero-parallax{ height:80vh; } }
+
+    /* WhatsApp floating */
+    .whatsapp-float{ position:fixed; right:24px; bottom:24px; width:60px; height:60px; border-radius:999px; background:#25D366; display:flex; align-items:center; justify-content:center; z-index:80; box-shadow:0 6px 20px rgba(0,0,0,0.4); transition:transform .2s; }
+    .whatsapp-float:hover{ transform:scale(1.06); }
+
+    /* Lightbox modal */
+    .lightbox-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; z-index:90; padding:1rem; }
+    .lightbox-img{ max-width:1200px; width:100%; height:auto; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+    .lightbox-close{ position:absolute; top:24px; right:24px; background:rgba(255,255,255,0.06); border-radius:8px; padding:8px; cursor:pointer; }
+
+    footer{ background:#0b0b0b; padding-top:3rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Loading -->
+  <div class="loading-screen" id="loadingScreen"><div class="loader"></div></div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/919916577094" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 .001 5.372.064 12a11.916 11.916 0 002.05 6.497L0 24l5.689-2.047A11.935 11.935 0 0012 24c6.627 0 12-5.372 12-12 0-3.195-1.248-6.176-3.48-8.52zM12 21.6a9.6 9.6 0 01-5.34-1.46l-.384-.226-3.38 1.217.908-3.061-.156-.251A9.6 9.6 0 012.4 12c0-5.303 4.297-9.6 9.6-9.6a9.6 9.6 0 016.785 2.81A9.6 9.6 0 0121.6 12c0 5.303-4.297 9.6-9.6 9.6zM16.46 14.35c-.29-.147-1.71-.84-1.97-.936-.26-.095-.45-.147-.64.148-.19.295-.73.936-.9 1.128-.17.19-.34.214-.63.072-.29-.142-1.22-.451-2.32-1.43-.86-.78-1.44-1.743-1.61-2.03-.17-.294.018-.455.135-.601.14-.166.31-.43.465-.645.155-.214.103-.402-.05-.56-.15-.158-.57-.602-.78-.817-.21-.215-.444-.235-.64-.232-.196.002-.416.01-.635.01-.22 0-.58.082-.885.375-.305.294-1.16 1.14-1.16 2.78s1.18 3.23 1.35 3.456c.17.227 2.33 3.56 5.64 4.98 2.36 1.09 3.04.98 3.59.92.57-.06 1.86-.76 2.13-1.49.27-.73.27-1.36.19-1.49-.08-.14-.29-.22-.58-.37z"/></svg>
+  </a>
+
+  <!-- NAV -->
+  <nav id="navbar" class="w-full">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between py-4">
+        <a href="index.html" class="text-2xl font-extrabold">
+          <span class="text-white">WEAPON</span> <span class="orange-accent"> FITNESS 2</span>
+        </a>
+
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="nav-link text-white">Home</a>
+          <a href="trainers.html" class="nav-link text-white">Trainers</a>
+          <a href="equipment.html" class="nav-link text-white">Our Equipment</a>
+          <a href="subscriptions.html" class="nav-link text-white">Subscriptions</a>
+          <a href="gallery.html" class="nav-link text-white font-bold">Gallery</a>
+          <a href="contact.html" class="nav-link text-white">Contact Us</a>
+        </div>
+
+        <button id="menuBtn" class="md:hidden text-white">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden pb-4">
+        <a href="index.html" class="block py-2 text-white">Home</a>
+        <a href="trainers.html" class="block py-2 text-white">Trainers</a>
+        <a href="equipment.html" class="block py-2 text-white">Our Equipment</a>
+        <a href="subscriptions.html" class="block py-2 text-white">Subscriptions</a>
+        <a href="gallery.html" class="block py-2 text-white">Gallery</a>
+        <a href="contact.html" class="block py-2 text-white">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO (same style & parallax as index) -->
+  <section class="hero-parallax">
+    <div id="heroBg" class="hero-bg"></div>
+
+    <div class="relative z-10 flex items-center justify-center h-full hero-content">
+      <div>
+        <h1 id="heroTitle" class="text-5xl md:text-7xl font-black leading-tight mb-6 opacity-0">
+          OUR <span class="orange-accent">GALLERY</span>
+        </h1>
+        <p id="heroSubtitle" class="text-lg md:text-xl mb-8 opacity-0 text-gray-200">
+          TRANSFORMATIONS • GYM INTERIORS • TRAINING SESSIONS
+        </p>
+        <a href="#gallery" class="btn-orange inline-block opacity-0" id="heroCTA">VIEW GALLERY</a>
+      </div>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+  </section>
+
+  <!-- Gallery section -->
+  <section id="gallery" class="bg-black">
+    <div class="container mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold">GALLERY</h2>
+        <p class="text-gray-400 mt-3">Click any image to enlarge.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- Use a mix of uploaded image + unsplash placeholders -->
+        <div class="gallery-item" data-full="/mnt/data/c05e12bf-4a50-40c7-97b4-057b7cb2553a.png">
+          <img src="/mnt/data/c05e12bf-4a50-40c7-97b4-057b7cb2553a.png" alt="Gym hero image">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1600">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800" alt="Transformation 1">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1600">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800" alt="Transformation 2">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800" alt="Transformation 3">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800" alt="Gym interior 1">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1558611848-73f7eb4001d9?w=1600">
+          <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001d9?w=800" alt="Gym interior 2">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1546484959-f6a58a4c7d2b?w=1600">
+          <img src="https://images.unsplash.com/photo-1546484959-f6a58a4c7d2b?w=800" alt="Workout session">
+        </div>
+
+        <div class="gallery-item" data-full="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?w=1600">
+          <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?w=800" alt="Equipment">
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="contact.html" class="btn-orange">BOOK A VISIT</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-black">
+    <div class="container mx-auto text-center py-12">
+      <h3 class="text-3xl font-extrabold mb-4">READY TO <span class="orange-accent">JOIN?</span></h3>
+      <p class="text-gray-400 mb-6">Call us or visit the gym to start your fitness journey today.</p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="tel:9916577094" class="btn-orange">Call Now</a>
+        <a href="https://wa.me/919916577094" target="_blank" class="px-6 py-3 rounded-lg border border-white/10">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-2"><span class="text-white">WEAPON</span> <span class="orange-accent">FITNESS 2</span></h3>
+          <p class="text-gray-400">Premium fitness, modern equipment and certified trainers at BSK 3rd Stage.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-3 orange-accent">QUICK LINKS</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="subscriptions.html">Subscriptions</a></li>
+            <li><a href="trainers.html">Trainers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-3 orange-accent">GET STARTED</h4>
+          <p class="text-gray-400 mb-3">Begin your transformation today.</p>
+          <a href="contact.html" class="btn-orange">CONTACT US</a>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 mt-8 pt-6 text-center text-gray-500">
+        © <span id="year"></span> Weapon Fitness 2. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox (hidden by default) -->
+  <div id="lightbox" style="display:none;">
+    <div id="lightboxBackdrop" class="lightbox-backdrop" onclick="closeLightbox()">
+      <div class="relative">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="Large view">
+        <div class="lightbox-close" onclick="closeLightbox()" title="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // hide loading screen on load
+    window.addEventListener('load', () => {
+      gsap.to('#loadingScreen', { opacity:0, duration:.5, onComplete: () => { document.getElementById('loadingScreen').style.display = 'none'; }});
+    });
+
+    // mobile menu toggle
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    // GSAP register
+    gsap.registerPlugin(ScrollTrigger);
+
+    // hero parallax
+    gsap.to('#heroBg', {
+      y: 250,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero-parallax',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    // hero content reveal
+    gsap.timeline()
+      .to('#heroTitle', { opacity:1, y:0, duration:1, delay:0.4 })
+      .to('#heroSubtitle', { opacity:1, y:0, duration:1 }, '-=0.6')
+      .to('#heroCTA', { opacity:1, scale:1, duration:0.4 }, '-=0.4');
+
+    // gallery reveal
+    gsap.utils.toArray('.gallery-item').forEach((el, i) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.7,
+        delay: i * 0.05
+      });
+    });
+
+    // LIGHTBOX
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    function openLightbox(url){
+      lightbox.style.display = 'block';
+      lightboxImg.src = url;
+      // prevent hero parallax from continuing weird transforms while open
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+    galleryItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const url = item.getAttribute('data-full') || item.querySelector('img').src;
+        openLightbox(url);
+      });
+    });
+
+    // close on Esc
+    window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
+    // prevent lightbox close when clicking image
+    document.getElementById('lightboxBackdrop').addEventListener('click', (e) => {
+      if(e.target.id === 'lightboxImg') e.stopPropagation();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- SEO Meta Tags -->
+    <title>Weapon Fitness 2 - Best Gym in BSK 3rd Stage, Bangalore | Modern Equipment & Certified Trainers</title>
+    <meta name="description" content="Join Weapon Fitness 2 in BSK 3rd Stage, Bangalore. Experience modern equipment, certified trainers, personalized training, and diet guidance. New gym opening offer available! Call 9916577094">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GymAndFitnessCenter",
+      "name": "Weapon Fitness 2",
+      "image": "https://yoursite.com/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "#175, BDA Layout, 50 Feet Road, Above HDFC Bank",
+        "addressLocality": "BSK 3rd Stage",
+        "addressRegion": "Bangalore",
+        "postalCode": "560085",
+        "addressCountry": "IN"
+      },
+      "telephone": ["+919916577094", "+918050577094"],
+      "openingHours": "Mo-Su 06:00-22:00"
+    }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .hero-parallax {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920') center/cover;
+            will-change: transform;
+        }
+        
+        .orange-accent {
+            color: #FF6B00;
+        }
+        
+        .bg-orange {
+            background-color: #FF6B00;
+        }
+        
+        .btn-orange {
+            background-color: #FF6B00;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-orange:hover {
+            background-color: #FF8534;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #FF6B00;
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .transformation-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .transformation-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .transformation-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.5);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #FF6B00;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 107, 0, 0.3);
+            border-top: 4px solid #FF6B00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919916577094" target="_blank" class="whatsapp-float" aria-label="Contact on WhatsApp">
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-black bg-opacity-90 backdrop-blur-md" id="navbar">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold">
+                    <span class="text-white">WEAPON</span>
+                    <span class="orange-accent"> FITNESS 2</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-orange-500">Home</a>
+                    <a href="trainers.html" class="nav-link text-white hover:text-orange-500">Trainers</a>
+                    <a href="equipment.html" class="nav-link text-white hover:text-orange-500">Our Equipment</a>
+                    <a href="subscriptions.html" class="nav-link text-white hover:text-orange-500">Subscriptions</a>
+                    <a href="gallery.html" class="nav-link text-white hover:text-orange-500">Gallery</a>
+                    <a href="contact.html" class="nav-link text-white hover:text-orange-500">Contact Us</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white" id="menuBtn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="hidden md:hidden pb-4" id="mobileMenu">
+                <a href="index.html" class="block py-2 text-white hover:text-orange-500">Home</a>
+                <a href="trainers.html" class="block py-2 text-white hover:text-orange-500">Trainers</a>
+                <a href="equipment.html" class="block py-2 text-white hover:text-orange-500">Our Equipment</a>
+                <a href="subscriptions.html" class="block py-2 text-white hover:text-orange-500">Subscriptions</a>
+                <a href="gallery.html" class="block py-2 text-white hover:text-orange-500">Gallery</a>
+                <a href="contact.html" class="block py-2 text-white hover:text-orange-500">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Parallax -->
+    <section class="hero-parallax">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="relative z-10 h-full flex items-center justify-center text-center px-4">
+            <div class="hero-content">
+                <h1 class="text-5xl md:text-7xl font-black mb-6 opacity-0" id="heroTitle">
+                    NEW GYM<br>
+                    <span class="orange-accent">OPENING OFFER</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-0" id="heroSubtitle">
+                    Transform Your Body. Transform Your Life.
+                </p>
+                <a href="subscriptions.html" class="inline-block px-8 py-4 btn-orange text-white font-bold text-lg rounded-lg opacity-0" id="heroCTA">
+                    JOIN NOW
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 px-4 bg-black">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 services-title">
+                WHY CHOOSE <span class="orange-accent">US</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-5xl mb-4 orange-accent">💪</div>
+                    <h3 class="text-2xl font-bold mb-3">MODERN EQUIPMENT</h3>
+                    <p class="text-gray-300">State-of-the-art fitness machines and equipment for optimal results</p>
+                </div>
+                
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-5xl mb-4 orange-accent">👨‍🏫</div>
+                    <h3 class="text-2xl font-bold mb-3">CERTIFIED TRAINERS</h3>
+                    <p class="text-gray-300">Expert guidance from experienced and certified fitness professionals</p>
+                </div>
+                
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-5xl mb-4 orange-accent">🎯</div>
+                    <h3 class="text-2xl font-bold mb-3">PERSONALIZED TRAINING</h3>
+                    <p class="text-gray-300">Custom workout plans tailored to your specific fitness goals</p>
+                </div>
+                
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-5xl mb-4 orange-accent">🥗</div>
+                    <h3 class="text-2xl font-bold mb-3">DIET GUIDANCE</h3>
+                    <p class="text-gray-300">Professional nutrition advice to complement your training</p>
+                </div>
+                
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-5xl mb-4 orange-accent">👥</div>
+                    <h3 class="text-2xl font-bold mb-3">GROUP CLASSES</h3>
+                    <p class="text-gray-300">Aerobics, Strengthening, CrossFit, and Cardio sessions</p>
+                </div>
+                
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-5xl mb-4 orange-accent">🏋️</div>
+                    <h3 class="text-2xl font-bold mb-3">CROSSFIT TRAINING</h3>
+                    <p class="text-gray-300">High-intensity functional fitness programs for maximum results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformations Section -->
+    <section class="py-20 px-4 bg-zinc-950">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 transformations-title">
+                CLIENT <span class="orange-accent">TRANSFORMATIONS</span>
+            </h2>
+            <p class="text-center text-gray-400 mb-12 text-lg">Real Results. Real People. Real Success.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="transformation-card">
+                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600" alt="Transformation 1" class="w-full h-80 object-cover rounded-xl">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 rounded-b-xl">
+                        <p class="text-lg font-bold">-15 KG in 3 Months</p>
+                    </div>
+                </div>
+                
+                <div class="transformation-card">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600" alt="Transformation 2" class="w-full h-80 object-cover rounded-xl">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 rounded-b-xl">
+                        <p class="text-lg font-bold">+8 KG Muscle Gain</p>
+                    </div>
+                </div>
+                
+                <div class="transformation-card">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600" alt="Transformation 3" class="w-full h-80 object-cover rounded-xl">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 rounded-b-xl">
+                        <p class="text-lg font-bold">Complete Body Recomp</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="gallery.html" class="inline-block px-8 py-4 btn-orange text-white font-bold text-lg rounded-lg">
+                    VIEW MORE TRANSFORMATIONS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="py-20 px-4 bg-black">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 location-title">
+                VISIT <span class="orange-accent">US</span>
+            </h2>
+            <p class="text-center text-gray-400 mb-12 text-lg">Located in the Heart of BSK 3rd Stage</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <div class="space-y-6">
+                    <div class="bg-zinc-900 p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 orange-accent">📍 ADDRESS</h3>
+                        <p class="text-lg text-gray-300">
+                            #175, BDA Layout, 50 Feet Road<br>
+                            BSK 3rd Stage, Bangalore-85<br>
+                            Above HDFC Bank
+                        </p>
+                    </div>
+                    
+                    <div class="bg-zinc-900 p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 orange-accent">📞 CONTACT</h3>
+                        <p class="text-lg text-gray-300">
+                            <a href="tel:8050577094" class="hover:text-orange-500 transition">8050577094</a><br>
+                            <a href="tel:9916577094" class="hover:text-orange-500 transition">9916577094</a>
+                        </p>
+                    </div>
+                    
+                    <div class="bg-zinc-900 p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 orange-accent">🕐 HOURS</h3>
+                        <p class="text-lg text-gray-300">
+                            Monday - Sunday<br>
+                            6:00 AM - 10:00 PM
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="h-96 lg:h-full rounded-xl overflow-hidden">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.6377583333333!2d77.5571!3d12.9352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU2JzA2LjciTiA3N8KwMzMnMjUuNiJF!5e0!3m2!1sen!2sin!4v1234567890"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="rounded-xl">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">
+                        <span class="text-white">WEAPON</span>
+                        <span class="orange-accent"> FITNESS 2</span>
+                    </h3>
+                    <p class="text-gray-400">
+                        Transform your body and mind at BSK 3rd Stage's premier fitness destination.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4 orange-accent">QUICK LINKS</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-orange-500 transition">Home</a></li>
+                        <li><a href="subscriptions.html" class="text-gray-400 hover:text-orange-500 transition">Subscriptions</a></li>
+                        <li><a href="trainers.html" class="text-gray-400 hover:text-orange-500 transition">Trainers</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-orange-500 transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4 orange-accent">GET STARTED</h4>
+                    <p class="text-gray-400 mb-4">Ready to begin your fitness journey?</p>
+                    <a href="contact.html" class="inline-block px-6 py-3 btn-orange text-white font-bold rounded-lg">
+                        CONTACT US
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>&copy; <span id="currentYear"></span> Weapon Fitness 2. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Loading Screen
+        window.addEventListener('load', () => {
+            gsap.to('#loadingScreen', {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }
+            });
+        });
+        
+        // Mobile Menu Toggle
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero Parallax Effect
+        gsap.to('#heroBg', {
+            y: 300,
+            scrollTrigger: {
+                trigger: '.hero-parallax',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+        
+        // Hero Content Animation
+        gsap.timeline()
+            .to('#heroTitle', { opacity: 1, y: 0, duration: 1, delay: 0.5 })
+            .to('#heroSubtitle', { opacity: 1, y: 0, duration: 1 }, '-=0.5')
+            .to('#heroCTA', { opacity: 1, scale: 1, duration: 0.5 }, '-=0.5');
+        
+        // Service Cards Animation
+        gsap.utils.toArray('.service-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                delay: i * 0.1
+            });
+        });
+        
+        // Section Titles Animation
+        gsap.utils.toArray('.services-title, .transformations-title, .location-title').forEach(title => {
+            gsap.from(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 1
+            });
+        });
+        
+        // Transformation Cards Animation
+        gsap.utils.toArray('.transformation-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.8,
+                delay: i * 0.15
+            });
+        });
+        
+        // Navbar Background on Scroll
+        ScrollTrigger.create({
+            start: 'top -50',
+            end: 99999,
+            toggleClass: {
+                className: 'shadow-lg',
+                targets: '#navbar'
+            }
+        });
+    </script>
+</body>
+</html>

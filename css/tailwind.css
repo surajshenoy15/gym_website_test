@@ -1,0 +1,15 @@
+/* tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Components (Optional) */
+@layer components {
+    .btn-orange {
+        @apply bg-orange-500 px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition;
+    }
+
+    .card-dark {
+        @apply bg-neutral-900 rounded-xl p-5 hover:scale-[1.02] transition border border-neutral-800;
+    }
+}
